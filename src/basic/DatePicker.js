@@ -82,7 +82,8 @@ export class DatePicker extends React.Component {
       placeHolderText,
       placeHolderTextStyle,
       textStyle,
-      timeZoneOffsetInMinutes
+      timeZoneOffsetInMinutes,
+      modalStyle
     } = this.props;
 
     const variables = this.context.theme
@@ -116,10 +117,13 @@ export class DatePicker extends React.Component {
             >
               <Text
                 onPress={() => this.setState({ modalVisible: false })}
-                style={{
-                  backgroundColor: variables.datePickerBg,
-                  flex: variables.datePickerFlex
-                }}
+                style={[
+                  {
+                    backgroundColor: variables.datePickerBg,
+                    flex: variables.datePickerFlex
+                  },
+                  modalStyle
+                ]}
               />
               <DatePickerIOS
                 date={
