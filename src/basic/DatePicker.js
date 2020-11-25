@@ -121,23 +121,24 @@ export class DatePicker extends React.Component {
                   {
                     backgroundColor: variables.datePickerBg,
                     flex: variables.datePickerFlex
-                  },
-                  modalStyle
+                  }
                 ]}
               />
-              <DatePickerIOS
-                date={
-                  this.state.chosenDate
-                    ? this.state.chosenDate
-                    : this.state.defaultDate
-                }
-                onDateChange={date => this.setDate(date)}
-                minimumDate={minimumDate}
-                maximumDate={maximumDate}
-                mode="date"
-                locale={locale}
-                timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
-              />
+              <View style={modalStyle}>
+                <DatePickerIOS
+                  date={
+                    this.state.chosenDate
+                      ? this.state.chosenDate
+                      : this.state.defaultDate
+                  }
+                  onDateChange={date => this.setDate(date)}
+                  minimumDate={minimumDate}
+                  maximumDate={maximumDate}
+                  mode="date"
+                  locale={locale}
+                  timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
+                />
+              </View>
             </Modal>
           </View>
         </View>
