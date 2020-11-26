@@ -82,6 +82,7 @@ export class DatePicker extends React.Component {
       placeHolderText,
       placeHolderTextStyle,
       textStyle,
+      containerStyle,
       timeZoneOffsetInMinutes,
       modalStyle
     } = this.props;
@@ -91,56 +92,54 @@ export class DatePicker extends React.Component {
       : variable;
 
     return (
-      <View>
+      <View style={containerStyle}>
+        <Text
+          onPress={() => (!disabled ? this.showDatePicker() : undefined)}
+          style={[
+            {
+              padding: variables.datePickerPadding,
+              color: variables.datePickerTextColor
+            },
+            this.state.chosenDate ? textStyle : placeHolderTextStyle
+          ]}
+        >
+          {this.state.chosenDate
+            ? this.formatChosenDate(this.state.chosenDate)
+            : placeHolderText || 'Select Date'}
+        </Text>
         <View>
-          <Text
-            onPress={() => (!disabled ? this.showDatePicker() : undefined)}
-            style={[
-              {
-                padding: variables.datePickerPadding,
-                color: variables.datePickerTextColor
-              },
-              this.state.chosenDate ? textStyle : placeHolderTextStyle
-            ]}
+          <Modal
+            supportedOrientations={['portrait', 'landscape']}
+            animationType={animationType}
+            transparent={modalTransparent} // from api
+            visible={this.state.modalVisible}
+            onRequestClose={() => {}}
           >
-            {this.state.chosenDate
-              ? this.formatChosenDate(this.state.chosenDate)
-              : placeHolderText || 'Select Date'}
-          </Text>
-          <View>
-            <Modal
-              supportedOrientations={['portrait', 'landscape']}
-              animationType={animationType}
-              transparent={modalTransparent} // from api
-              visible={this.state.modalVisible}
-              onRequestClose={() => {}}
-            >
-              <Text
-                onPress={() => this.setState({ modalVisible: false })}
-                style={[
-                  {
-                    backgroundColor: variables.datePickerBg,
-                    flex: variables.datePickerFlex
-                  }
-                ]}
+            <Text
+              onPress={() => this.setState({ modalVisible: false })}
+              style={[
+                {
+                  backgroundColor: variables.datePickerBg,
+                  flex: variables.datePickerFlex
+                }
+              ]}
+            />
+            <View style={modalStyle}>
+              <DatePickerIOS
+                date={
+                  this.state.chosenDate
+                    ? this.state.chosenDate
+                    : this.state.defaultDate
+                }
+                onDateChange={date => this.setDate(date)}
+                minimumDate={minimumDate}
+                maximumDate={maximumDate}
+                mode="date"
+                locale={locale}
+                timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
               />
-              <View style={modalStyle}>
-                <DatePickerIOS
-                  date={
-                    this.state.chosenDate
-                      ? this.state.chosenDate
-                      : this.state.defaultDate
-                  }
-                  onDateChange={date => this.setDate(date)}
-                  minimumDate={minimumDate}
-                  maximumDate={maximumDate}
-                  mode="date"
-                  locale={locale}
-                  timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
-                />
-              </View>
-            </Modal>
-          </View>
+            </View>
+          </Modal>
         </View>
       </View>
     );

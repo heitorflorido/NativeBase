@@ -902,6 +902,7 @@ declare module "native-base" {
 			textStyle?: RnTextStyleProp;
 			placeHolderTextStyle?: RnTextStyleProp;
 			modalStyle?: RnViewStyleProp;
+			containerStyle?: RnViewStyleProp;
 			androidMode?: "calendar" | "spinner" | "default";
 			timeZoneOffsetInMinutes?: number;
 			modalTransparent?: boolean;
